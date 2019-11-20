@@ -25,5 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="Submit"
         android:textSize="18sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        android:onClick="processAnswers"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
