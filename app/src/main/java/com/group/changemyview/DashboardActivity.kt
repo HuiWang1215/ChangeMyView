@@ -56,8 +56,11 @@ class DashboardActivity : ListActivity() {
 
         for (i in 0 until mAdapter.count) {
             val data = mAdapter.getItem(i) as QuestionItem
-            
+
             mAnswerRadioGroup = findViewById<View>(R.id.answerGroup) as RadioGroup
+            val pos = listView!!.firstVisiblePosition + i
+            val currView = listView!!.getChildAt(pos) as View
+
 
             when {
                 mAnswerRadioGroup!!.checkedRadioButtonId == R.id.answerYes -> data.mAnswer = QuestionItem.Answer.YES

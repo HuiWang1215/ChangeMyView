@@ -15,6 +15,10 @@ class QuestionListAdapter(private val mContext: Context,
     private val mItems = dataSource
     private var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
+    var mQuestionNumber: TextView? = null
+    var mQuestionText: TextView? = null
+    var mAnswerView: RadioGroup? = null
+
 //    fun add(item: ToDoItem) {
 //
 //        mItems.add(item)
@@ -42,6 +46,8 @@ class QuestionListAdapter(private val mContext: Context,
     @SuppressLint("SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
 
+        Log.i(TAG, "entered getView() method")
+
         val viewHolder: ViewHolder
         val newView: View
 
@@ -50,11 +56,12 @@ class QuestionListAdapter(private val mContext: Context,
             // TODO - Inflate the View for this ToDoItem
             newView = mLayoutInflater.inflate(R.layout.question_item, parent, false)
 
+            val item = getItem(position) as QuestionItem
             viewHolder = ViewHolder()
-            newView.tag = viewHolder
-            viewHolder.mQuestionNumber = newView.findViewById(R.id.question_number)
-            viewHolder.mQuestionText = newView.findViewById(R.id.question_text)
-            viewHolder.mAnswerView = newView.findViewById(R.id.answerGroup)
+            newView.tag = item.mQuestionNum
+            mQuestionNumber = newView.findViewById(R.id.question_number)
+            mQuestionText = newView.findViewById(R.id.question_text)
+            mAnswerView = newView.findViewById(R.id.answerGroup)
 
         } else {
             viewHolder = convertView.tag as ViewHolder

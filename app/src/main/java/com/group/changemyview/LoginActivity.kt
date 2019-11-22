@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +21,16 @@ class LoginActivity: AppCompatActivity() {
            loginUserAccount()
         }
 
+
         Back_to_register.setOnClickListener {
-            finish()
+            val intent = Intent(this@LoginActivity,RegistrationActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun loginUserAccount() {
+        Log.i(TAG, "entered loginUserAccount")
+
         val email = email_edittext_login.text.toString()
         val password = password_edittext_login.text.toString()
 
@@ -41,10 +46,14 @@ class LoginActivity: AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
+                    Log.i(TAG, "successful login loginUserAccount")
+
                     Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
                         .show()
                     startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
                 } else {
+                    Log.i(TAG, "failed login loginUserAccount")
+
                     Toast.makeText(
                         applicationContext,
                         "Login failed! Please try again later",
@@ -52,5 +61,9 @@ class LoginActivity: AppCompatActivity() {
                     ).show()
                 }
             }
+    }
+
+    companion object {
+        private val TAG = "FinalProject-ChangeMyView"
     }
 }
