@@ -47,7 +47,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Documents/CMSC436/Change My VIew/Graphics/eye.png" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Documents/CMSC436/Change My VIew/Graphics/AnswerQuestionsBackground.jpg" />
+                                      <entry key="outputName" value="AnswerQuestionsBackground" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

@@ -50,7 +50,7 @@ class LoginActivity: AppCompatActivity() {
 
                     Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
                         .show()
-                    startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                 } else {
                     Log.i(TAG, "failed login loginUserAccount")
 

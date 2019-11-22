@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="3">
+
+    <Button
+        android:id="@+id/savedQuestionsButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-smallcaps"
+        android:scaleType="fitXY"
+        android:text="Saved Question Answers"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/answerQuestionsButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:scaleType="fitXY"
+        android:text="Answer Questions"
+        android:textColor="#ffffff"
+        android:textSize="24sp" />
+
+
+    <Button
+        android:id="@+id/matchesButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:scaleType="fitXY"
+        android:text="Get Matches"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+</LinearLayout>
