@@ -43,22 +43,22 @@ class RegistrationActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.username_edittext_register)
         haveAccountText = findViewById(R.id.already_have_account_textview)
 
-        var db = FirebaseDatabase.getInstance().getReference("Questions").child("Question1")
-        db.child("user3").setValue("yes")
-        db.child("user4").setValue("no")
-        db.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    var user = snapshot.getValue(String::class.java)
-                    Log.i("TAG", user)
-                    Log.i("TAG", snapshot.key)
-                }
+        //var db = FirebaseDatabase.getInstance().getReference("Questions").child("Question1")
+        //db.child("user3").setValue("yes")
+        //db.child("user4").setValue("no")
+        //db.addValueEventListener(object : ValueEventListener {
+          //  override fun onDataChange(dataSnapshot: DataSnapshot) {
+            //    for (snapshot in dataSnapshot.children) {
+              //      var user = snapshot.getValue(String::class.java)
+                //    Log.i("TAG", user)
+                  //  Log.i("TAG", snapshot.key)
+                //}
 
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
+            //}
+            //override fun onCancelled(databaseError: DatabaseError) {
 
-            }
-        })
+            //}
+        //})
 
         registerButton!!.setOnClickListener {
             register()
@@ -133,7 +133,7 @@ class RegistrationActivity : AppCompatActivity() {
             profileUrl)
         ref.setValue(user)
             .addOnSuccessListener {
-                val intent = Intent(this@RegistrationActivity, DashboardActivity::class.java)
+                val intent = Intent(this@RegistrationActivity, HomeActivity::class.java)
                 intent.flags =Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
