@@ -58,7 +58,7 @@ class HomeActivity : AppCompatActivity() {
 
         // activities to start when buttons are clicked
         answerQuestionsButton!!.setOnClickListener {
-            val intent = Intent(this@HomeActivity, DashboardActivity::class.java)
+            val intent = Intent(this@HomeActivity, QuestionActivity::class.java)
             startActivity(intent)
         }
 

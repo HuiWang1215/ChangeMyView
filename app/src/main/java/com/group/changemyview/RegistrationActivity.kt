@@ -133,7 +133,7 @@ class RegistrationActivity : AppCompatActivity() {
             profileUrl)
         ref.setValue(user)
             .addOnSuccessListener {
-                val intent = Intent(this@RegistrationActivity, DashboardActivity::class.java)
+                val intent = Intent(this@RegistrationActivity, HomeActivity::class.java)
                 intent.flags =Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
