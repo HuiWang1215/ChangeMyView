@@ -3,22 +3,19 @@ package com.group.changemyview
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import android.util.DisplayMetrics
-import android.R.attr.bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 
 
 class HomeActivity : AppCompatActivity() {
 
-    internal var savedQuestionsButton: Button? = null
-    internal var answerQuestionsButton: Button? = null
-    internal var matchesButton: Button? = null
+    private var savedQuestionsButton: Button? = null
+    private var answerQuestionsButton: Button? = null
+    private var matchesButton: Button? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +62,10 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // create on click listener for saved questions and get matches buttons 
+        savedQuestionsButton!!.setOnClickListener {
+            val intent = Intent(this@HomeActivity, SavedQuestionAnswersActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {

@@ -2,8 +2,6 @@ package com.group.changemyview
 
 import android.app.ListActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,7 +21,7 @@ class DashboardActivity : ListActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dashboard_activity)
+        setContentView(R.layout.saved_questions_activity)
 
         var index = 1
 
@@ -52,25 +50,25 @@ class DashboardActivity : ListActivity() {
         return listView!!
     }
 
-    fun processAnswers(v: View) {
-
-        for (i in 0 until mAdapter.count) {
-            val data = mAdapter.getItem(i) as QuestionItem
-
-            mAnswerRadioGroup = findViewById<View>(R.id.answerGroup) as RadioGroup
-            val pos = listView!!.firstVisiblePosition + i
-            val currView = listView!!.getChildAt(pos) as View
-
-
-            when {
-                mAnswerRadioGroup!!.checkedRadioButtonId == R.id.answerYes -> data.mAnswer = QuestionItem.Answer.YES
-                mAnswerRadioGroup!!.checkedRadioButtonId == R.id.answerNo -> data.mAnswer = QuestionItem.Answer.NO
-                else -> data.mAnswer = QuestionItem.Answer.NO_ANSWER
-            }
-
-            Log.i(TAG, "${data.mQuestion} " + data.mAnswer.toString())
-        }
-    }
+//    fun processAnswers(v: View) {
+//
+//        for (i in 0 until mAdapter.count) {
+//            val data = mAdapter.getItem(i) as QuestionItem
+//
+//            mAnswerRadioGroup = findViewById<View>(R.id.answerGroup) as RadioGroup
+//            val pos = listView!!.firstVisiblePosition + i
+//            val currView = listView!!.getChildAt(pos) as View
+//
+//
+//            when {
+//                mAnswerRadioGroup!!.checkedRadioButtonId == R.id.answerYes -> data.mAnswer = QuestionItem.Answer.YES
+//                mAnswerRadioGroup!!.checkedRadioButtonId == R.id.answerNo -> data.mAnswer = QuestionItem.Answer.NO
+//                else -> data.mAnswer = QuestionItem.Answer.NO_ANSWER
+//            }
+//
+//            Log.i(TAG, "${data.mQuestion} " + data.mAnswer.toString())
+//        }
+//    }
 
     companion object {
         private val TAG = "FinalProject-ChangeMyView"

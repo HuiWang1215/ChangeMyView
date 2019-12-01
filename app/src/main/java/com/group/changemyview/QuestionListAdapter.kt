@@ -8,23 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import java.util.*
+import android.widget.TextView
 
 class QuestionListAdapter(private val mContext: Context,
-                          private val dataSource: ArrayList<QuestionItem>) : BaseAdapter() {
+                          private val dataSource: MutableList<QuestionItem>) : BaseAdapter() {
 
     private val mItems = dataSource
     private var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
-    var mQuestionNumber: TextView? = null
     var mQuestionText: TextView? = null
-    var mAnswerView: RadioGroup? = null
-
-//    fun add(item: ToDoItem) {
-//
-//        mItems.add(item)
-//        notifyDataSetChanged()
-//
-//    }
+    var mAnswerText: TextView? = null
 
     // Returns the number of QuestionItems
     override fun getCount(): Int {
@@ -43,55 +36,27 @@ class QuestionListAdapter(private val mContext: Context,
     }
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
 
-        Log.i(TAG, "entered getView() method")
+        val v = mLayoutInflater.inflate(R.layout.question_item, parent, false)
+        val currQuestion = getItem(position) as QuestionItem
 
-        val viewHolder: ViewHolder
-        val newView: View
-
-        if (null == convertView) {
-
-            // TODO - Inflate the View for this ToDoItem
-            newView = mLayoutInflater.inflate(R.layout.question_item, parent, false)
-
-            val item = getItem(position) as QuestionItem
-            viewHolder = ViewHolder()
-            newView.tag = item.mQuestionNum
-            mQuestionNumber = newView.findViewById(R.id.question_number)
-            mQuestionText = newView.findViewById(R.id.question_text)
-            mAnswerView = newView.findViewById(R.id.answerGroup)
-
-        } else {
-            viewHolder = convertView.tag as ViewHolder
-            viewHolder.mAnswerView!!.setOnCheckedChangeListener(null)
-            newView = convertView
-
+        val answerString = when {
+            currQuestion.mAnswer == QuestionItem.Answer.YES -> "Yes"
+            currQuestion.mAnswer == QuestionItem.Answer.NO -> "No"
+            else -> "None"
         }
 
-        // TODO - Fill in specific Question Item data
-        // Remember that the data that goes in this View
-        // corresponds to the user interface elements defined
-        // in the layout file
-        val storeViewHolder = newView.tag as ViewHolder
+        // find resources
+        mQuestionText = v.findViewById(R.id.question_num_text) as TextView
+        mAnswerText = v.findViewById(R.id.answer_text) as TextView
 
-        // TODO - Display Title in TextView
-        val item = getItem(position) as QuestionItem
-        storeViewHolder.mQuestionNumber!!.text = "Question ${item.mQuestionNum.toString()}"
+        // update text
+        mQuestionText!!.text = currQuestion.mQuestionNum!!.toString() + ". " + currQuestion.mQuestion!!
+        mAnswerText!!.text = answerString
 
-        // TODO - Display Priority in a TextView
-        storeViewHolder.mQuestionText!!.text = item.mQuestion
-
-        return newView
-    }
-
-    internal class ViewHolder {
-        var position: Int = 0
-        var mItemLayout: RelativeLayout? = null
-        var mQuestionNumber: TextView? = null
-        var mQuestionText: TextView? = null
-        var mAnswerView: RadioGroup? = null
+        return v
     }
 
     companion object {

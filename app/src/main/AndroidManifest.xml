@@ -30,6 +30,9 @@
         <activity android:name=".DashboardActivity">
 
         </activity>
+        <activity android:name=".SavedQuestionAnswersActivity">
+
+        </activity>
     </application>
 
 </manifest>
