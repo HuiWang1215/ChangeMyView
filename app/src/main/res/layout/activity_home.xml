@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="3">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,20 +15,27 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Evon"
-        android:textSize="15dp"
-        android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/btn_dialog" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Evon"
+            android:textSize="15dp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
     <Button
         android:id="@+id/savedQuestionsButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:adjustViewBounds="true"
         android:layout_weight="1"
+        android:adjustViewBounds="true"
         android:fontFamily="sans-serif-smallcaps"
         android:scaleType="fitXY"
         android:text="Saved Question Answers >"

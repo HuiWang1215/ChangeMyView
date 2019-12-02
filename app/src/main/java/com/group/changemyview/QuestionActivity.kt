@@ -29,12 +29,24 @@ class QuestionActivity : AppCompatActivity() {
     var mQuestion: TextView? = null
     var questionNumber = 0
     val user = FirebaseAuth.getInstance().currentUser
+    var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
         mQuestion = findViewById(R.id.question)
         mQuestion!!.setText(questionList[0])
+
+        val db = FirebaseDatabase.getInstance().getReference("users")
+        db.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    username = snapshot.child("username").value.toString()
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
         chooseAnswer()
     }
@@ -49,7 +61,7 @@ class QuestionActivity : AppCompatActivity() {
                 val currentUser = user!!.uid
                 val currentEmail = user!!.email.toString()
                 val ref = FirebaseDatabase.getInstance().getReference("/Questions/$currentQuestion/$currentUser")
-                val answer = Answer(currentEmail,"Yes")
+                val answer = Answer(currentEmail,"Yes", username)
                 ref.setValue(answer)
 
                 startActivity(Intent(this@QuestionActivity, HomeActivity::class.java))
@@ -58,7 +70,7 @@ class QuestionActivity : AppCompatActivity() {
                 val currentUser = user!!.uid
                 val currentEmail = user!!.email.toString()
                 val ref = FirebaseDatabase.getInstance().getReference("/Questions/$currentQuestion/$currentUser")
-                val answer = Answer(currentEmail,"Yes")
+                val answer = Answer(currentEmail,"Yes",username)
                 ref.setValue(answer)
                 updateQuestion()
             }
@@ -69,7 +81,7 @@ class QuestionActivity : AppCompatActivity() {
                 val currentUser = user!!.uid
                 val currentEmail = user!!.email.toString()
                 val ref = FirebaseDatabase.getInstance().getReference("/Questions/$currentQuestion/$currentUser")
-                val answer = Answer(currentEmail,"No")
+                val answer = Answer(currentEmail,"No",username)
                 ref.setValue(answer)
 
                 startActivity(Intent(this@QuestionActivity, HomeActivity::class.java))
@@ -78,7 +90,7 @@ class QuestionActivity : AppCompatActivity() {
                 val currentUser = user!!.uid
                 val currentEmail = user!!.email.toString()
                 val ref = FirebaseDatabase.getInstance().getReference("/Questions/$currentQuestion/$currentUser")
-                val answer = Answer(currentEmail,"No")
+                val answer = Answer(currentEmail,"No",username)
                 ref.setValue(answer)
                 updateQuestion()
             }
@@ -105,4 +117,4 @@ class QuestionActivity : AppCompatActivity() {
         mQuestion!!.setText(questionList[questionNumber])
     }
 }
-class Answer(val email:String, val answer:String)
+class Answer(val email:String, val answer:String, val username:String)

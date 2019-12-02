@@ -11,7 +11,12 @@ import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class HomeActivity : AppCompatActivity() {
@@ -25,7 +30,23 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val username = findViewById<TextView>(R.id.username)
+        val db = FirebaseDatabase.getInstance().getReference("users")
+        db.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    if(snapshot.key == user) {
+                        username.setText(snapshot.child("username").value.toString())
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
         verifyUserIsLoggedIn()
+
 
         // create background images for Buttons
         val displayMetrics = DisplayMetrics()
