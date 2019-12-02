@@ -71,6 +71,11 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this@HomeActivity, SavedQuestionAnswersActivity::class.java)
             startActivity(intent)
         }
+
+        matchesButton!!.setOnClickListener {
+            val intent = Intent(this@HomeActivity, MatchesActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
