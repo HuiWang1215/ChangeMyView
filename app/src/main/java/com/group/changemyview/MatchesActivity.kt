@@ -33,7 +33,7 @@ class MatchesActivity : AppCompatActivity() {
         val listView:ListView = findViewById(android.R.id.list)
 
         var from = ""
-        val db_users = FirebaseDatabase.getInstance().getReference("Users")
+        val db_users = FirebaseDatabase.getInstance().getReference("users")
         db_users.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
               from = dataSnapshot.child(currentUserUID).child("username").value as String
