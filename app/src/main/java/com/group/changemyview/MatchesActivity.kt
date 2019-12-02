@@ -30,12 +30,25 @@ class MatchesActivity : AppCompatActivity() {
         val currentActivity = this
         val currentUserUID = FirebaseAuth.getInstance().currentUser!!.uid
         val listOfMatches = ArrayList<Match>()
+        val listView:ListView = findViewById(android.R.id.list)
 
-        val db = FirebaseDatabase.getInstance().getReference("Questions")
-        db.addValueEventListener(object : ValueEventListener {
+        var from = ""
+        val db_users = FirebaseDatabase.getInstance().getReference("Users")
+        db_users.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+              from = dataSnapshot.child(currentUserUID).child("username").value as String
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+
+
+        val db_questions = FirebaseDatabase.getInstance().getReference("Questions")
+        db_questions.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
-                    val potentialMatches = ArrayList<String>()
+                    val potentialMatches = ArrayMap<String, String>()
                     val question = snapshot.key
                     var currentUsersAnswer = ""
 
@@ -44,54 +57,55 @@ class MatchesActivity : AppCompatActivity() {
                         currentUsersAnswer = currentUserAnsweredQuestion.child("answer").value as String
                     }
                     if (currentUsersAnswer == "") {
-                        listOfMatches.add(Match(question!!, UNANSWERED, "None"))
+                        listOfMatches.add(Match(question!!, UNANSWERED, "None", "None"))
                     }
                     else {
                         for (user in snapshot.children) {
                             if (user.child("answer").value as String != currentUsersAnswer)
                             {
-                                potentialMatches.add(user.child("email").value as String)
+                                val username = user.child("username").value as String
+                                potentialMatches[username] = user.child("email").value as String
                             }
                         }
                         if (potentialMatches.size == 0) {
-                            listOfMatches.add(Match(question!!, currentUsersAnswer, NO_MATCHES))
+                            listOfMatches.add(Match(question!!, currentUsersAnswer, NO_MATCHES, "None"))
                         }
                         else {
-                            listOfMatches.add(Match(question!!, currentUsersAnswer, potentialMatches.random()))
+                            val to = potentialMatches.keys.random()
+                            listOfMatches.add(Match(question!!, currentUsersAnswer, potentialMatches[to]!!, to))
                         }
                     }
                 }
                 val adapter = MatchesAdapter(currentActivity, listOfMatches)
-                val listView:ListView = findViewById(R.id.matches_list_view)
                 listView.adapter = adapter
+
             }
             override fun onCancelled(databaseError: DatabaseError) {
 
             }
         })
 
-
-//        listView.setOnItemClickListener { parent, view, position, id ->
-//            val item = listView.getItemAtPosition(position) as Match
-//            if (item.answer != UNANSWERED && item.answer != NO_MATCHES) {
-//                var intent = createEmail(item.email, item.answer)
-//                startActivity(Intent.createChooser(intent, "Send Email"))
-//            }
-//            else {
-//                Toast.makeText(this,
-//                    "You were not matched for this question.",
-//                    Toast.LENGTH_SHORT).show()
-//            }
-//        }
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val item = listView.getItemAtPosition(position) as Match
+            if (item.answer != UNANSWERED && item.answer != NO_MATCHES) {
+                var intent = createEmail(item.email, item.question)
+                startActivity(Intent.createChooser(intent, "Send Email"))
+            }
+            else {
+                Toast.makeText(this,
+                    "You were not matched for this question.",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun createEmail(email : String, question: String) : Intent{
         var intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/html"
-        intent.putExtra(Intent.EXTRA_EMAIL, email)
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         intent.putExtra(Intent.EXTRA_SUBJECT, "Change my View App")
-        intent.putExtra(Intent.EXTRA_TEXT, "Hi, we were matched on Change my View app for a " +
-                "debate on the topic: \n" + question + ".\n\n Please respond back if you would like to " +
+        intent.putExtra(Intent.EXTRA_TEXT, "Hi, \n\n we were matched on Change my View app for a " +
+                "debate on the topic: \n\n" + question + "\n\n Please respond back if you would like to " +
                 "chat.")
         return intent
     }
