@@ -1,12 +1,15 @@
 package com.group.changemyview
 
 import android.app.ListActivity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -28,7 +31,7 @@ class SavedQuestionAnswersActivity : ListActivity() {
         setContentView(R.layout.saved_questions_activity)
 
         topLayout = findViewById(R.id.linearLayoutContainer)
-        listView = findViewById<ListView>(android.R.id.list)
+        listView = findViewById(android.R.id.list)
 
         // resize top image
         val displayMetrics = DisplayMetrics()
@@ -78,7 +81,6 @@ class SavedQuestionAnswersActivity : ListActivity() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
-
 
     override fun getListView(): ListView? {
         return listView!!

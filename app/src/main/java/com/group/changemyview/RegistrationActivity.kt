@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_registration.*
 import java.security.KeyStore
 import java.util.*
 
@@ -43,23 +44,6 @@ class RegistrationActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.username_edittext_register)
         haveAccountText = findViewById(R.id.already_have_account_textview)
 
-        var db = FirebaseDatabase.getInstance().getReference("Questions").child("Question1")
-        db.child("user3").setValue("yes")
-        db.child("user4").setValue("no")
-        db.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    var user = snapshot.getValue(String::class.java)
-                    Log.i("TAG", user)
-                    Log.i("TAG", snapshot.key)
-                }
-
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        })
-
         registerButton!!.setOnClickListener {
             register()
         }
@@ -72,6 +56,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         haveAccountText!!.setOnClickListener {
             val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
     }
@@ -83,8 +68,8 @@ class RegistrationActivity : AppCompatActivity() {
         if(requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             photoUri = data.data
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,photoUri)
-            val bitmapDrawable = BitmapDrawable(this.resources,bitmap)
-            photoButton!!.setBackground(bitmapDrawable)
+            select_photo_imageview.setImageBitmap(bitmap)
+            photoButton!!.alpha = 0f
         }
     }
     private fun register() {

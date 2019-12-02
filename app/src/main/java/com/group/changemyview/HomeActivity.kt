@@ -9,6 +9,9 @@ import android.widget.Button
 import android.util.DisplayMetrics
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import com.google.firebase.auth.FirebaseAuth
 
 
 class HomeActivity : AppCompatActivity() {
@@ -21,6 +24,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        verifyUserIsLoggedIn()
 
         // create background images for Buttons
         val displayMetrics = DisplayMetrics()
@@ -68,6 +73,26 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        FirebaseAuth.getInstance().signOut()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.signout, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    private fun verifyUserIsLoggedIn() {
+        val uid = FirebaseAuth.getInstance().uid
+        if (uid == null) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+    }
     companion object {
         private val TAG = "FinalProject-ChangeMyView"
     }

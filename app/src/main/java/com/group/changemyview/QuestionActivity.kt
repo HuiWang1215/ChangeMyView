@@ -3,12 +3,13 @@ package com.group.changemyview
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
-import android.widget.ImageView
 import com.google.firebase.database.*
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_question.*
 
 class QuestionActivity : AppCompatActivity() {
     var questionList = arrayListOf(
@@ -32,12 +33,16 @@ class QuestionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
-
         mQuestion = findViewById(R.id.question)
         mQuestion!!.setText(questionList[0])
+
+        chooseAnswer()
+    }
+
+    private fun chooseAnswer() {
+        mQuestion!!.setText(questionList[questionNumber])
         yesBtn = findViewById(R.id.yesButton)
         noBtn = findViewById(R.id.noButton)
-
         yesBtn!!.setOnClickListener {
             if (questionNumber == questionList.size - 1) {
                 val currentQuestion = questionList[questionNumber]
@@ -78,6 +83,22 @@ class QuestionActivity : AppCompatActivity() {
                 updateQuestion()
             }
         }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (questionNumber == 0) {
+            Toast.makeText(applicationContext,
+                "You are at the first question", Toast.LENGTH_LONG).show()
+            return true
+        } else {
+            questionNumber--
+            chooseAnswer()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.previous_question, menu)
+        return super.onCreateOptionsMenu(menu)
     }
     private fun updateQuestion() {
         questionNumber++

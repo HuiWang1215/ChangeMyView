@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         registerBtn!!.setOnClickListener {
             val intent = Intent(this@MainActivity, RegistrationActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
         loginBtn!!.setOnClickListener {
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
     }

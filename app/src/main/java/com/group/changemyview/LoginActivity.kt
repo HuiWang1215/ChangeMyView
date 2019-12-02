@@ -24,6 +24,7 @@ class LoginActivity: AppCompatActivity() {
 
         Back_to_register.setOnClickListener {
             val intent = Intent(this@LoginActivity,RegistrationActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
     }
@@ -50,7 +51,9 @@ class LoginActivity: AppCompatActivity() {
 
                     Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
                         .show()
-                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
                 } else {
                     Log.i(TAG, "failed login loginUserAccount")
 
