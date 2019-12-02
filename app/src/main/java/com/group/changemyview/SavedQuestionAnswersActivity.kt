@@ -80,6 +80,11 @@ class SavedQuestionAnswersActivity : ListActivity() {
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+
+        // update question from click
+        listView!!.setOnItemClickListener { parent, view, position, id ->
+            val myItem = parent.getItemAtPosition(position) as QuestionItem
+        }
     }
 
     override fun getListView(): ListView? {
