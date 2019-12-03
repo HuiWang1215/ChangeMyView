@@ -125,7 +125,7 @@ class RegistrationActivity : AppCompatActivity() {
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
         val user = User(uid, usernameEditText!!.text.toString(), emailEditText!!.text.toString(),
-            profileUrl)
+            profileUrl,0)
         ref.setValue(user)
             .addOnSuccessListener {
                 val intent = Intent(this@RegistrationActivity, HomeActivity::class.java)
@@ -135,5 +135,5 @@ class RegistrationActivity : AppCompatActivity() {
     }
 }
 
-class User(val uid:String, val username:String, val email:String, val profileUrl:String)
+class User(val uid:String, val username:String, val email:String, val profileUrl:String, val report:Int)
 data class Question(val username: String = "", val answer: String = "")

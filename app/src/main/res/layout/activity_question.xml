@@ -52,4 +52,27 @@
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="normal" />
+    <TextView
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/noButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/noButton"
+        android:text="Next"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="normal"/>
+
+    <TextView
+        android:id="@+id/prevButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/yesButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/yesButton"
+        android:text="Previous"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="normal"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
