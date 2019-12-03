@@ -3,9 +3,14 @@ package com.group.changemyview
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StyleSpan
 import android.util.ArrayMap
 import android.util.DisplayMetrics
 import android.util.Log
@@ -49,6 +54,7 @@ class MatchesActivity : AppCompatActivity() {
         val savedQuestionsDrawable = BitmapDrawable(resources, matchesScaledBitmap)
         topLayout!!.background = savedQuestionsDrawable
 
+        // Get current user from data base.
         var from = ""
         val db_users = FirebaseDatabase.getInstance().getReference("users")
         db_users.addValueEventListener(object : ValueEventListener {
@@ -60,7 +66,7 @@ class MatchesActivity : AppCompatActivity() {
             }
         })
 
-
+        // Fetch questions from database
         val db_questions = FirebaseDatabase.getInstance().getReference("Questions")
         db_questions.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -105,7 +111,7 @@ class MatchesActivity : AppCompatActivity() {
         listView.setOnItemClickListener { parent, view, position, id ->
             val item = listView.getItemAtPosition(position) as Match
             if (item.answer != UNANSWERED && item.answer != NO_MATCHES) {
-                var intent = createEmail(item.email, item.question)
+                var intent = createEmail(item.email, item.question, item.to, from)
                 startActivity(Intent.createChooser(intent, "Send Email"))
             }
             else {
@@ -116,14 +122,14 @@ class MatchesActivity : AppCompatActivity() {
         }
     }
 
-    private fun createEmail(email : String, question: String) : Intent{
-        var intent = Intent(Intent.ACTION_SEND)
+    private fun createEmail(email : String, question: String, to : String, from : String) : Intent{
+        val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/html"
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         intent.putExtra(Intent.EXTRA_SUBJECT, "Change my View App")
-        intent.putExtra(Intent.EXTRA_TEXT, "Hi, \n\n we were matched on Change my View app for a " +
+        intent.putExtra(Intent.EXTRA_TEXT, "Hi " + to + ",\n\n we were matched on Change my View app for a " +
                 "debate on the topic: \n\n" + question + "\n\n Please respond back if you would like to " +
-                "chat.")
+                "chat. \n \n" + "Sincerely,\n" + from)
         return intent
     }
 
