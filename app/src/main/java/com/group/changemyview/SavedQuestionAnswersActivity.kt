@@ -84,9 +84,10 @@ class SavedQuestionAnswersActivity : ListActivity() {
         // update question from click
         listView!!.setOnItemClickListener { parent, view, position, id ->
             val myItem = parent.getItemAtPosition(position) as QuestionItem
-            val intent = Intent(this@SavedQuestionAnswersActivity,
+            val mIntent = Intent(this@SavedQuestionAnswersActivity,
                 UpdateQuestionActivity::class.java)
-            intent.putExtra("Question text", myItem.mQuestion)
+            mIntent.putExtra("Question text", myItem.mQuestion)
+            startActivity(mIntent)
         }
     }
 
