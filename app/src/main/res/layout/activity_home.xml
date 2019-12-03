@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#94E4EE"
+        android:background="#000000"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
 
@@ -25,7 +25,8 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Evon"
+            android:text=""
+            android:fontFamily="sans-serif-thin"
             android:textSize="15dp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>

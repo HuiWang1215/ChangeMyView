@@ -1,15 +1,16 @@
 package com.group.changemyview
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.ArrayMap
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 
 class MatchesActivity : AppCompatActivity() {
 
+    internal var topLayout: LinearLayout? = null
 
     val NO_MATCHES = "No other users answered this question with an opposing view point."
     val UNANSWERED = "You did not answer this question."
@@ -31,6 +33,21 @@ class MatchesActivity : AppCompatActivity() {
         val currentUserUID = FirebaseAuth.getInstance().currentUser!!.uid
         val listOfMatches = ArrayList<Match>()
         val listView:ListView = findViewById(android.R.id.list)
+
+        topLayout = findViewById(R.id.linearLayoutContainer)
+
+        // resize top image
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val height = displayMetrics.heightPixels
+        val width = displayMetrics.widthPixels
+
+        val matchesBitmap = BitmapFactory.decodeResource(resources,
+            R.drawable.matches_background)
+        val matchesScaledBitmap = Bitmap.createScaledBitmap(matchesBitmap, width,
+            height/3, false)
+        val savedQuestionsDrawable = BitmapDrawable(resources, matchesScaledBitmap)
+        topLayout!!.background = savedQuestionsDrawable
 
         var from = ""
         val db_users = FirebaseDatabase.getInstance().getReference("users")

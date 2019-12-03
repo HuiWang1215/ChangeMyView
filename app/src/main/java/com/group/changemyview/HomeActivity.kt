@@ -37,7 +37,8 @@ class HomeActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     if(snapshot.key == user) {
-                        username.setText(snapshot.child("username").value.toString())
+                        val text = "Hello ${snapshot.child("username").value.toString()}"
+                        username.setText(text)
                     }
                 }
             }

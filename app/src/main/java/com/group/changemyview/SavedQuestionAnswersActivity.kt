@@ -1,23 +1,20 @@
 package com.group.changemyview
 
-import android.app.ListActivity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class SavedQuestionAnswersActivity : ListActivity() {
+class SavedQuestionAnswersActivity : AppCompatActivity() {
 
 
     lateinit var mAdapter: QuestionListAdapter
@@ -89,10 +86,6 @@ class SavedQuestionAnswersActivity : ListActivity() {
             mIntent.putExtra("Question text", myItem.mQuestion)
             startActivity(mIntent)
         }
-    }
-
-    override fun getListView(): ListView? {
-        return listView!!
     }
 
     companion object {
