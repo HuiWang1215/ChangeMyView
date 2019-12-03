@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.Menu
+import android.view.MenuItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -87,7 +89,27 @@ class SavedQuestionAnswersActivity : AppCompatActivity() {
             startActivity(mIntent)
         }
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.report_user -> {
+                val intent = Intent(applicationContext, ReportActivity::class.java)
+                startActivity(intent)
+                return super.onOptionsItemSelected(item)
+            }
+            R.id.sign_out -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                return super.onOptionsItemSelected(item)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.report_user, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
     companion object {
         private val TAG = "FinalProject-ChangeMyView"
     }

@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.ArrayMap
 import android.util.DisplayMetrics
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -124,7 +126,27 @@ class MatchesActivity : AppCompatActivity() {
                 "chat. \n \n" + "Sincerely,\n" + from)
         return intent
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.report_user -> {
+                val intent = Intent(applicationContext, ReportActivity::class.java)
+                startActivity(intent)
+                return super.onOptionsItemSelected(item)
+            }
+            R.id.sign_out -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                return super.onOptionsItemSelected(item)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.report_user, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
 
 }

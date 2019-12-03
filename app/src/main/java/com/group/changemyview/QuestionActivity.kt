@@ -101,34 +101,23 @@ class QuestionActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
-            R.id.previous_question -> {
-                if (questionNumber == 0) {
-                    Toast.makeText(
-                        applicationContext,
-                        "You are at the first question", Toast.LENGTH_LONG
-                    ).show()
-                    return true
-                } else {
-                    questionNumber--
-                    chooseAnswer()
-                }
+            R.id.report_user -> {
+                val intent = Intent(applicationContext, ReportActivity::class.java)
+                startActivity(intent)
+                return super.onOptionsItemSelected(item)
             }
-            R.id.next_question -> {
-                if (questionNumber == questionList.size - 1) {
-                    Toast.makeText(applicationContext,
-                        "You are at the last question", Toast.LENGTH_LONG).show()
-                    return true
-                } else {
-                    questionNumber++
-                    chooseAnswer()
-                }
+            R.id.sign_out -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                return super.onOptionsItemSelected(item)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.previous_next_question, menu)
+        menuInflater.inflate(R.menu.report_user, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
