@@ -75,6 +75,16 @@ class RegistrationActivity : AppCompatActivity() {
     private fun register() {
         val email = emailEditText!!.text.toString()
         val password = passwordEditText!!.text.toString()
+
+        if (photoUri == null) {
+            Toast.makeText(applicationContext, "Please upload a photo！", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (usernameEditText!!.text.toString() == "") {
+            Toast.makeText(applicationContext, "Please enter username！", Toast.LENGTH_LONG).show()
+            return
+        }
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter email！", Toast.LENGTH_LONG).show()
             return

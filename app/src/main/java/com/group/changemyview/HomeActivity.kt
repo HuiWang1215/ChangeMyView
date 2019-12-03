@@ -3,20 +3,25 @@ package com.group.changemyview
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Picture
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.util.DisplayMetrics
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
+import java.net.URL
 
 
 class HomeActivity : AppCompatActivity() {
@@ -24,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private var savedQuestionsButton: Button? = null
     private var answerQuestionsButton: Button? = null
     private var matchesButton: Button? = null
-
+    var url: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +37,15 @@ class HomeActivity : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser!!.uid
         val username = findViewById<TextView>(R.id.username)
+        val profile = findViewById<ImageView>(R.id.profile)
         val db = FirebaseDatabase.getInstance().getReference("users")
         db.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     if(snapshot.key == user) {
-                        val text = "Hello ${snapshot.child("username").value.toString()}"
-                        username.setText(text)
+                        username.setText(snapshot.child("username").value.toString())
+                        url = Uri.parse(snapshot.child("profileUrl").value.toString())
+                        Picasso.get().load(url).into(profile)
                     }
                 }
             }

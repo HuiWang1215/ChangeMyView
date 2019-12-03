@@ -37,11 +37,14 @@ class QuestionActivity : AppCompatActivity() {
         mQuestion = findViewById(R.id.question)
         mQuestion!!.setText(questionList[0])
 
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
         val db = FirebaseDatabase.getInstance().getReference("users")
         db.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
-                    username = snapshot.child("username").value.toString()
+                    if(snapshot.key == user) {
+                        username = snapshot.child("username").value.toString()
+                    }
                 }
             }
 
@@ -97,21 +100,38 @@ class QuestionActivity : AppCompatActivity() {
         }
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (questionNumber == 0) {
-            Toast.makeText(applicationContext,
-                "You are at the first question", Toast.LENGTH_LONG).show()
-            return true
-        } else {
-            questionNumber--
-            chooseAnswer()
+        when (item?.itemId) {
+            R.id.previous_question -> {
+                if (questionNumber == 0) {
+                    Toast.makeText(
+                        applicationContext,
+                        "You are at the first question", Toast.LENGTH_LONG
+                    ).show()
+                    return true
+                } else {
+                    questionNumber--
+                    chooseAnswer()
+                }
+            }
+            R.id.next_question -> {
+                if (questionNumber == questionList.size - 1) {
+                    Toast.makeText(applicationContext,
+                        "You are at the last question", Toast.LENGTH_LONG).show()
+                    return true
+                } else {
+                    questionNumber++
+                    chooseAnswer()
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.previous_question, menu)
+        menuInflater.inflate(R.menu.previous_next_question, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
     private fun updateQuestion() {
         questionNumber++
         mQuestion!!.setText(questionList[questionNumber])
