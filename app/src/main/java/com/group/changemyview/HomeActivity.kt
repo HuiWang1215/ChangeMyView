@@ -55,7 +55,6 @@ class HomeActivity : AppCompatActivity() {
 
         verifyUserIsLoggedIn()
 
-
         // create background images for Buttons
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
