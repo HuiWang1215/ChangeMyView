@@ -41,7 +41,7 @@ class SavedQuestionAnswersActivity : AppCompatActivity() {
         val savedQuestionsBitmap = BitmapFactory.decodeResource(resources,
             R.drawable.saved_questions_background)
         val savedQuestionsScaledBitmap = Bitmap.createScaledBitmap(savedQuestionsBitmap, width,
-            height/3, false)
+            height/4, false)
         val savedQuestionsDrawable = BitmapDrawable(resources, savedQuestionsScaledBitmap)
         topLayout!!.background = savedQuestionsDrawable
 

@@ -41,6 +41,10 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity"/>
         </activity>
+        <activity android:name=".ReportActivity" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity"/>
+        </activity>>
     </application>
 
 </manifest>

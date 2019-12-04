@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.ArrayMap
 import android.util.DisplayMetrics
@@ -44,7 +45,7 @@ class MatchesActivity : AppCompatActivity() {
         val matchesBitmap = BitmapFactory.decodeResource(resources,
             R.drawable.matches_background)
         val matchesScaledBitmap = Bitmap.createScaledBitmap(matchesBitmap, width,
-            height/3, false)
+            height/4, false)
         val savedQuestionsDrawable = BitmapDrawable(resources, matchesScaledBitmap)
         topLayout!!.background = savedQuestionsDrawable
 
@@ -117,11 +118,12 @@ class MatchesActivity : AppCompatActivity() {
     }
 
     private fun createEmail(email : String, question: String, to : String, from : String) : Intent{
-        val intent = Intent(Intent.ACTION_SEND)
+        val intent = Intent(Intent.ACTION_SENDTO)
         intent.type = "text/html"
+        intent.data = Uri.parse("mailto:")
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         intent.putExtra(Intent.EXTRA_SUBJECT, "Change my View App")
-        intent.putExtra(Intent.EXTRA_TEXT, "Hi " + to + ",\n\n we were matched on Change my View app for a " +
+        intent.putExtra(Intent.EXTRA_TEXT, "Hi " + to + ",\n\n We were matched on Change my View app for a " +
                 "debate on the topic: \n\n" + question + "\n\n Please respond back if you would like to " +
                 "chat. \n \n" + "Sincerely,\n" + from)
         return intent

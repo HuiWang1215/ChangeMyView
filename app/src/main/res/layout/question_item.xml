@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="User Answer"
-        android:textSize="14sp"
-        android:textColor="#474444"/>
+        android:textSize="18sp"
+        android:textColor="#474444"
+        android:textStyle="italic"/>
 </LinearLayout>

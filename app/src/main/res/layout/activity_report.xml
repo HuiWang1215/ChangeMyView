@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/linearLayoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="229dp"
         android:background="@drawable/matches_background"
         android:orientation="vertical"
         android:paddingBottom="10dp">
@@ -29,37 +29,115 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
             android:gravity="center"
-            android:text="Report User"
+            android:text="Report User :("
             android:textColor="#000000"
             android:textSize="30sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/username"
+    <LinearLayout
+        android:id="@+id/linearLayoutContainer2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="448dp"
         android:layout_below="@id/linearLayoutContainer"
-        android:layout_marginTop="5dp"
-        android:text="username"/>
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/reasons"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/username"
-        android:layout_marginTop="5dp"
-        android:text="reasons"/>
+        <TextView
+            android:id="@+id/usernameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayoutContainer"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="Username"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textCursorDrawable="@drawable/black_cursor"/>
 
-    <Button
-        android:id="@+id/report"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@id/reasons"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/transparent_button"
-        android:text="Report"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
-        android:textStyle="normal" />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameText"
+            android:backgroundTint="#000000"
+            android:fontFamily="sans-serif-thin"
+            android:hint="Enter Username"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
+
+        <TextView
+            android:id="@+id/reasonsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username"
+            android:layout_marginTop="25dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="Reason"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reasonsText">
+
+            <RadioButton
+                android:id="@+id/inappropriate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="#000000"
+                android:checked="true"
+                android:text="Inappropriate Content" />
+
+            <RadioButton
+                android:id="@+id/spam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="#000000"
+                android:text="Spam" />
+
+            <RadioButton
+                android:id="@+id/other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="#000000"
+                android:text="Other" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/reasons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:layout_marginStart="50dp"
+            android:backgroundTint="#000000"
+            android:fontFamily="sans-serif-thin"
+            android:hint="Enter Reason"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
+            android:textCursorDrawable="@drawable/black_cursor"/>
+
+        <Button
+            android:id="@+id/report"
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="#000000"
+            android:text="Report"
+            android:textColor="#ff0000"
+            android:textSize="18sp"
+            android:textStyle="normal" />
+    </LinearLayout>
 </RelativeLayout>

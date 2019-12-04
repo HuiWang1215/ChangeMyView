@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import com.google.firebase.database.*
 import android.widget.TextView
@@ -15,12 +16,21 @@ class UpdateQuestionActivity : AppCompatActivity() {
     var noBtn: Button? = null
     var mQuestionView: TextView? = null
     var mQuestionText: String? = null
+    var mNextQuestion: TextView? = null
+    var mPrevQuestion: TextView? = null
     val user = FirebaseAuth.getInstance().currentUser
     var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
+
+        // make previous and next textviews invisible
+        mNextQuestion = findViewById<TextView>(R.id.nextButton)
+        mPrevQuestion = findViewById<TextView>(R.id.prevButton)
+
+        mNextQuestion!!.visibility = View.INVISIBLE
+        mPrevQuestion!!.visibility = View.INVISIBLE
 
         // set username
         val db = FirebaseDatabase.getInstance().getReference("users")
